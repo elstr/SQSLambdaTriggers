@@ -9,6 +9,16 @@ aws dynamodb create-table --table-name Message \
   --billing-mode=PAY_PER_REQUEST
 ```
 
+## Lambda code fix
+It's important to initiate boto3 with the region of our SQS queue and DynamoBD table.  
+This can be found in the SQS queue detail and in the DynamoDB table details.
+
+```
+sqs = boto3.resource('sqs', region_name='us-east-1')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+```
+
+
 ## Create SQS Queue
 
 ```sh
@@ -24,3 +34,4 @@ Run the provided script `send_message.py` to send messages to SQS
 `./send_message.py -q Messages -i 0.1`
 
 Press `Ctrl+C` to quit.
+
